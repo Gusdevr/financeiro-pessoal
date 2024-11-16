@@ -24,47 +24,44 @@ const Home = () => {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/transactions/all');
+      const response = await axios.get('http://ec2-18-219-146-72.us-east-2.compute.amazonaws.com/transactions/all');
       setTransactions(response.data);
     } catch (error) {
-      console.error('Erro ao buscar transações:', error)
+      console.error('Erro ao buscar transações:', error);
     }
-  }
-
-
+  };
+  
   const fetchTotalBalance = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/transactions/balance');
+      const response = await axios.get('http://ec2-18-219-146-72.us-east-2.compute.amazonaws.com/transactions/balance');
       setTotalBalance(response.data.total);
     } catch (error) {
-      console.error('Erro ao buscar o saldo total:', error)
+      console.error('Erro ao buscar o saldo total:', error);
     }
-  }
-
-
+  };
+  
   const addTransaction = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('http://localhost:3000/transactions/add', formData)
-      setFormData({ description: '', value: '', type: 'entrada' })
-      fetchTransactions()
-      fetchTotalBalance()
+      await axios.post('http://ec2-18-219-146-72.us-east-2.compute.amazonaws.com/transactions/add', formData);
+      setFormData({ description: '', value: '', type: 'entrada' });
+      fetchTransactions();
+      fetchTotalBalance();
     } catch (error) {
-      console.error('Erro ao adicionar transação:', error)
+      console.error('Erro ao adicionar transação:', error);
     }
-  }
-
-
+  };
+  
   const deleteTransaction = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/transactions/${id}`)
-      fetchTransactions()
-      fetchTotalBalance()
+      await axios.delete(`http://ec2-18-219-146-72.us-east-2.compute.amazonaws.com/transactions/${id}`);
+      fetchTransactions();
+      fetchTotalBalance();
     } catch (error) {
-      console.error('Erro ao deletar transação:', error)
+      console.error('Erro ao deletar transação:', error);
     }
-  }
-
+  };
+  
 
   useEffect(() => {
     fetchTransactions()
